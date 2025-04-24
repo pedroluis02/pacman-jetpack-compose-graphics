@@ -8,38 +8,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PacmanCanvasView(
-    modifier: Modifier = Modifier,
-    color: Color = Color.Yellow
-) {
+fun PacmanCanvasView(modifier: Modifier = Modifier) {
     Canvas(
         modifier = modifier
             .fillMaxSize()
             .padding(20.dp)
     ) {
-        val pacmanDiameter = 200.dp.toPx()
-        val pacmanRadius = pacmanDiameter / 2
-
-        val pacmanSize = Size(pacmanDiameter, pacmanDiameter)
-        val pacmanOffset = center.minus(Offset(pacmanRadius, pacmanRadius))
-
-        drawArc(
-            color,
-            45f,
-            270f,
-            true,
-            pacmanOffset,
-            pacmanSize
-        )
+        drawPacman()
     }
+}
+
+internal fun DrawScope.drawPacman(radius: Dp = 100.dp, color: Color = Color.Yellow) {
+    val radiusPx = radius.toPx()
+    val diameterPx = radiusPx * 2
+
+    val size = Size(diameterPx, diameterPx)
+    val offset = center.minus(Offset(radiusPx, radiusPx))
+
+    drawArc(
+        color,
+        45f,
+        270f,
+        true,
+        offset,
+        size
+    )
 }
 
 @Preview
 @Composable
-fun PacmanCanvasPreview() {
-    PacmanCanvasView(color = Color.Cyan)
+private fun PacmanCanvasPreview() {
+    PacmanCanvasView()
 }
