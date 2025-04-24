@@ -24,20 +24,24 @@ fun PacmanCanvasView(modifier: Modifier = Modifier) {
     }
 }
 
-internal fun DrawScope.drawPacman(radius: Dp = 100.dp, color: Color = Color.Yellow) {
+internal fun DrawScope.drawPacman(
+    radius: Dp = 100.dp,
+    color: Color = Color.Yellow,
+    offset: Offset = center
+) {
     val radiusPx = radius.toPx()
     val diameterPx = radiusPx * 2
 
-    val size = Size(diameterPx, diameterPx)
-    val offset = center.minus(Offset(radiusPx, radiusPx))
+    val sizePx = Size(diameterPx, diameterPx)
+    val offsetPx = offset.minus(Offset(radiusPx, radiusPx))
 
     drawArc(
         color,
         45f,
         270f,
         true,
-        offset,
-        size
+        offsetPx,
+        sizePx
     )
 }
 
